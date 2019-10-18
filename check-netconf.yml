@@ -1,6 +1,6 @@
 ---
 - name: Load and commit configuration data on a device running Junos OS
-  hosts: 10.84.0.101
+  hosts: vMX1
   connection: local
   gather_facts: no
 
