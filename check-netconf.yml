@@ -1,8 +1,6 @@
 ---
 - name: Load and commit configuration data on a device running Junos OS
   hosts: vMX1
-  roles:
-    - Juniper.junos 
   connection: local
   gather_facts: no
 
