@@ -1,0 +1,13 @@
+---
+- name: Add JTI Resource
+  hosts: vMX1
+  connection: local
+  gather_facts: no
+
+  tasks: 
+    - name: load configure lines into device
+      junos_config:
+        lines:
+          - set services analytics sensor {{ sensor_name }} server-name {{ server_name }}
+          - set services analytics sensor {{ sensor_name }} export-name {{ export_name }}
+          - set services analytics sensor {{ sensor_name }} resource {{ resource }}
