@@ -10,7 +10,7 @@
         config_format: "json"
     - name: Print configuration
       debug:
-        var: result.ansible_facts.junos.config
+        var: result.ansible_facts.junos
 
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
