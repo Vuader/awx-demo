@@ -1,4 +1,17 @@
 ---
+- name: Get device facts and configuration
+  hosts: vMX1
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: collect default set of facts and configuration
+      junos_facts:
+        gather_subset: config
+        config_format: "json"
+    - name: Print configuration
+      debug:
+        var: result.ansible_facts.junos.config
+
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
   connection: local
