@@ -11,7 +11,7 @@
       register: facts
     - name: Print configuration
       debug:
-        var: item
+        msg: "{{item}}"
       with_items : facts.ansible_facts.configuration.services.analytics.export-profile
 
 
