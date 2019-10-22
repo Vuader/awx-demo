@@ -2,16 +2,48 @@
   "name": "Add JTI Resource",
   "description": "Prompt for JTI Values",
   "spec": [
-    {   
+       {   
         "question_description": "Sensor Name",
         "min": null,
         "default": "",
         "max": null,
         "required": true,
-        "choices": "opennti\n",
         "variable": "sensor_name",
-        "question_name": "Select Sensor",
+        "question_name": "Sensor Name",
+        "type": "text"
+    },
+    {   
+        "question_description": "Server Name",
+        "min": null,
+        "default": "",
+        "max": null,
+        "required": true,
+        "choices": "opennti\n",
+        "variable": "server_name",
+        "question_name": "Select Server",
+        "type": "multiplechoice"
+    },
+     {   
+        "question_description": "Export Name",
+        "min": null,
+        "default": "",
+        "max": null,
+        "required": true,
+        "choices": "opennti\n",
+        "variable": "export_name",
+        "question_name": "Select Export",
+        "type": "multiplechoice"
+    },
+    {   
+        "question_description": "Resource",
+        "min": null,
+        "default": "",
+        "max": null,
+        "required": true,
+        "choices": "/junos/services/health-monitor/config/\n/junos/services/health-monitor/data/\n/junos/services/ip-tunnel/usage/\n/junos/services/label-switched-path/usage/\n/junos/services/segment-routing/interface/egress/usage/\n/junos/services/segment-routing/interface/ingress/usage/\n/junos/services/segment-routing/sid/egress/usage/\n/junos/services/segment-routing/sid/usage/\n/junos/services/segment-routing/traffic-engineering/ingress/usage/\n/junos/services/segment-routing/traffic-engineering/transit/usage/\n/junos/services/spu/ipsec-vpn/\n/junos/services/spu/serviceset/\n/junos/services/spu/sessions/\n/junos/system/cmerror/configuration/\n/junos/system/cmerror/counters/\n/junos/system/linecard/cpu/memory/\n/junos/system/linecard/fabric/\n/junos/system/linecard/firewall/\n/junos/system/linecard/interface/\n/junos/system/linecard/interface/logical/usage/\n/junos/system/linecard/interface/queue/\n/junos/system/linecard/interface/traffic/\n/junos/system/linecard/intf-exp/\n/junos/system/linecard/npu/memory/\n/junos/system/linecard/npu/utilization/\n/junos/system/linecard/optical/\n/junos/system/linecard/optics/\n/junos/system/linecard/otn/\n/junos/system/linecard/packet/usage/\n/junos/system/linecard/qmon-sw/\n/junos/system/linecard/qmon/\n/junos/system/linecard/services/inline-jflow/\n/junos/system/linecard/system-top/\n",
+        "variable": "resource",
+        "question_name": "Select Resource",
         "type": "multiplechoice"
     }
-  ]
+ ]
 }
