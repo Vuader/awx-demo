@@ -8,9 +8,10 @@
       junos_facts:
         gather_subset: config
         config_format: "json"
+      register: facts
     - name: Print configuration
       debug:
-        msg: result.ansible_facts.junos.config
+        vat: facts
 
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
