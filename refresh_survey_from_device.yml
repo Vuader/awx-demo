@@ -11,7 +11,7 @@
       register: facts
     - name: Print configuration
       debug:
-        vat: facts
+        var: facts
 
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
   hosts: localhost
