@@ -12,7 +12,7 @@
     - name: Print configuration
       debug:
         msg: "{{item}}"
-      with_items : "{{facts.ansible_facts.configuration.services.analytics.export-profile}}"
+      with_items : "{{facts.ansible_facts.ansible_net_config.configuration.services.analytics.export-profile}}"
 
 
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
