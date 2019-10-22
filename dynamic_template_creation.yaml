@@ -1,0 +1,28 @@
+---
+- name: TOWER CONFIGURATION IN PLAYBOOK FORM
+  hosts: localhost
+  connection: local
+  become: yes
+  gather_facts: no
+  vars:   
+    username: "student1"
+    admin_password: "password"
+    admin_username: "admin"
+    tower_url: "http://10.84.9.5"
+  tasks:  
+
+    - name: create partition job template
+      tower_job_template:
+        name: "dynamic_partition_template"
+        job_type: "run"
+        inventory: "vMX on EVE"
+        project: "Juniper Demo"
+        playbook: "add-jti.yml"
+        credential: "Juniper demo"
+        survey_enabled: true
+        survey_spec: "{{ lookup('file', 'jti_survey.json') }}"
+        ask_limit: True
+        tower_username: "{{admin_username}}"
+        tower_password: "{{admin_password}}"
+        tower_host: "{{tower_url}}"
+        validate_certs: no

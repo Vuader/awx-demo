@@ -1,0 +1,17 @@
+{ 
+  "name": "Add JTI Resource",
+  "description": "Prompt for JTI Values",
+  "spec": [
+    {   
+        "question_description": "Sensor Name",
+        "min": null,
+        "default": "",
+        "max": null,
+        "required": true,
+        "choices": "opennti\n",
+        "variable": "sensor_name",
+        "question_name": "Select Sensor",
+        "type": "multiplechoice"
+    }
+  ]
+}
