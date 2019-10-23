@@ -3,20 +3,27 @@
   hosts: vMX1
   connection: local
   gather_facts: no
+
+  vars:
+    query: 'ansible_facts.ansible_net_config.configuration.services.analytics."export-profile"'
+
   tasks:
+    - name: Initializing an empty variable to hold server names
+      set_fact:
+        server_list: ""
     - name: collect default set of facts and configuration
       junos_facts:
         gather_subset: config
         config_format: "json"
       register: facts
     - name: Print configuration
-      debug:
-        msg: "{{item}}"
-      with_items : '{{facts.ansible_facts.ansible_net_config.configuration.services.analytics."export-profile"}}'
+      set_fact:
+        server_list: "{{server_list}}{{item.name}}\n"
+      loop : "{{ facts | json_query(query) }}"
 
 
 - name: TOWER CONFIGURATION IN PLAYBOOK FORM
-  hosts: localhost
+  hosts: vMX1
   connection: local
   become: yes
   gather_facts: no
@@ -25,20 +32,20 @@
     admin_username: "admin"
     tower_url: "http://10.84.9.5"
   tasks:  
-  - name: Update multiple shoice options in json
+  - name: Update multiple choice options in json
     json_patch:
       src: "jti_survey.json"
       operations:
         - op: replace
           path: "/spec/1/choices"
-          value: "opennti\n"
+          value: "{{server_list}}"
   - name: Update multiple shoice options in json
     json_patch:
       src: "jti_survey.json"
       operations:
         - op: replace
           path: "/spec/2/choices"
-          value: "opennti\n"
+          value: "{{server_list}}"
   - name: Create JTI Template
     tower_job_template:
       name: "Add JTI Resource"
