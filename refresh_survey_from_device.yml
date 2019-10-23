@@ -11,18 +11,18 @@
     - name: Initializing an empty variable to hold server names
       set_fact:
         server_list: ""
-    - name: collect default set of facts and configuration
+    - name: Fetch latest config from Device
       junos_facts:
         gather_subset: config
         config_format: "json"
       register: facts
-    - name: Print configuration
+    - name: Getting relevant configured values
       set_fact:
         server_list: "{{server_list}}{{item.name}}\n"
       loop : "{{ facts | json_query(query) }}"
 
 
-- name: TOWER CONFIGURATION IN PLAYBOOK FORM
+- name: Updating AWX
   hosts: vMX1
   connection: local
   become: yes
@@ -32,21 +32,21 @@
     admin_username: "admin"
     tower_url: "http://10.84.9.5"
   tasks:  
-  - name: Update multiple choice options in json
+  - name: Update multiple choice options for export list in json
     json_patch:
       src: "jti_survey.json"
       operations:
         - op: replace
           path: "/spec/1/choices"
           value: "{{server_list}}"
-  - name: Update multiple shoice options in json
+  - name: Update multiple choice options for server list in json
     json_patch:
       src: "jti_survey.json"
       operations:
         - op: replace
           path: "/spec/2/choices"
           value: "{{server_list}}"
-  - name: Create JTI Template
+  - name: Create/Update JTI Template
     tower_job_template:
       name: "Add JTI Resource"
       job_type: "run"
