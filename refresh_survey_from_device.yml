@@ -34,14 +34,14 @@
   tasks:  
   - name: Update multiple choice options for export list in json
     json_patch:
-      src: "jti_survey.json"
+      src: "/var/lib/awx/projects/jti_survey.json"
       operations:
         - op: replace
           path: "/spec/1/choices"
           value: "{{server_list}}"
   - name: Update multiple choice options for server list in json
     json_patch:
-      src: "jti_survey.json"
+      src: "/var/lib/awx/projects/jti_survey.json"
       operations:
         - op: replace
           path: "/spec/2/choices"
