@@ -1,5 +1,6 @@
 ---
 - name: Update DHCP Server config
+  hosts: all
 
   roles:
      - debops.dhcpd
