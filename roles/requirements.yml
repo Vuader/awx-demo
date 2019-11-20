@@ -1,2 +1,2 @@
-- src: git@github.com:debops/debops.git
+- src: https://github.com/debops/debops.git
   scm: git
