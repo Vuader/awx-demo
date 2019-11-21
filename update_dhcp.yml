@@ -29,16 +29,13 @@
   hosts: localhost
   connection: local
   gather_facts: no
-  vars:
-    admin_password: "{{ admin_pass }}"
-    admin_username: "{{ admin_user }}"
-    tower_url: "{{ tower }}"
   tasks:
   - name: Create device on AWX
     tower_host:
       name: "{{hostname}}"
       inventory: "vMX on EVE"
       state: present
+      tower_config_file: "~/.tower_cli.cfg"
       variables:
         ansible_host: "{{hostname}}"
         inventory_hostname: "{{hostname}}"
