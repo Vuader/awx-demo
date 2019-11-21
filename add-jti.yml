@@ -1,7 +1,6 @@
 ---
 - name: Add JTI Resource
-  hosts: vMX1
-  connection: local
+  hosts: "{{ hosts }}"
   gather_facts: no
 
   tasks: 
