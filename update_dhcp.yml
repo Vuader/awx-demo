@@ -2,14 +2,15 @@
 - name: Update DHCP Server config
   hosts: all
 
-  blockinfile:
-    path: /etc/dhcp/dhcpd.conf
-    block: |
-      host {{ vendor_id }} {
-        hardware ethernet {{mac}};
-        option tftp-server-name "100.64.69.1";
-        option host-name "{{ hostname }}";
-        option NEW_OP.transfer-mode "ftp";
-        option NEW_OP.config-file-name "/dist/config/{{ hostname }}.config";
-      }
-    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ hostname }}"
+  - name: Update DHCP Server config
+    blockinfile:
+      path: /etc/dhcp/dhcpd.conf
+      block: |
+        host {{ vendor_id }} {
+          hardware ethernet {{mac}};
+          option tftp-server-name "100.64.69.1";
+          option host-name "{{ hostname }}";
+          option NEW_OP.transfer-mode "ftp";
+          option NEW_OP.config-file-name "/dist/config/{{ hostname }}.config";
+        }
+      marker: "# {mark} ANSIBLE MANAGED BLOCK {{ hostname }}"
