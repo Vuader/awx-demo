@@ -1,0 +1,11 @@
+---
+- name: Add NTP config
+  hosts: "{{ hosts }}"
+  gather_facts: no
+
+  tasks: 
+    - name: set NTP config on Juniper
+      junos_config:
+        lines:
+          - set system ntp server 196.4.160.4
+          - set system ntp peer 196.4.160.4
