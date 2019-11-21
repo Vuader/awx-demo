@@ -1,3 +1,19 @@
+system {
+    root-authentication {
+        encrypted-password "$6$.R0viVXj$eTFDjmBeRLkrWYc/Nyxe86DGiHAuigQiLi.MJcCl3MjtK3Pc34Uo38mu2Yyc8tVlehioyASDZZLWrztVawvty1"; ## SECRET-DATA
+    }
+    login {
+        user awx {
+            class super-user;
+            authentication {
+               encrypted-password "$6$nZwPiJwY$MhZ8euN/EnfAFh/apXoh8dlcpapBWey1vpcM9EKlEiIwI/JqmHUre3vhoBSplLDgqnV4/P0IBh.IbCQfowHKh."; ## SECRET-DATA
+            }
+        }
+    }
+}
+chassis {
+    delete: auto-image-upgrade;
+}
 interfaces {
     ge-0/0/0 {
         unit 0 {
