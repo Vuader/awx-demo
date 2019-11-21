@@ -26,13 +26,13 @@
 
 
 - name: Updating AWX
-  hosts: all
+  hosts: localhost
   connection: local
   gather_facts: no
   vars:
-    admin_password: "password"
-    admin_username: "admin"
-    tower_url: "http://10.84.9.5"
+    admin_password: "{{ admin_pass }}"
+    admin_username: "{{ admin_user }}"
+    tower_url: "{{ tower }}"
   tasks:
   - name: Create device on AWX
     tower_host:
