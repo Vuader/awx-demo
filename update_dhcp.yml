@@ -15,3 +15,6 @@
             option NEW_OP.config-file-name "/dist/config/{{ hostname }}.config";
           }
         marker: "# {mark} ANSIBLE MANAGED BLOCK {{ hostname }}"
+
+     - name: Restart isc-dhcp-server 
+       service: name=isc-dhcp-server state=restarted
