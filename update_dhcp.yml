@@ -23,3 +23,22 @@
       template:
         src: templates/initial.j2
         dest: "/var/ftp/dist/config/{{ hostname }}.config"
+
+
+- name: Updating AWX
+  hosts: all
+  connection: local
+  gather_facts: no
+  vars:
+    admin_password: "password"
+    admin_username: "admin"
+    tower_url: "http://10.84.9.5"
+  tasks:
+  - name: Create device on AWX
+    tower_host:
+      name: {{hostname}}
+      inventory: "vMX on EVE"
+      state: present
+      variables:
+        ansible_host: {{hostname}}
+        inventory_hostname: {{hostname}}
