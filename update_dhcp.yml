@@ -36,9 +36,9 @@
   tasks:
   - name: Create device on AWX
     tower_host:
-      name: {{hostname}}
+      name: "{{hostname}}"
       inventory: "vMX on EVE"
       state: present
       variables:
-        ansible_host: {{hostname}}
-        inventory_hostname: {{hostname}}
+        ansible_host: "{{hostname}}"
+        inventory_hostname: "{{hostname}}"
