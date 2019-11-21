@@ -10,6 +10,11 @@ system {
             }
         }
     }
+    services {
+        netconf {
+            ssh;
+        }
+    }
 }
 chassis {
     delete: auto-image-upgrade;
