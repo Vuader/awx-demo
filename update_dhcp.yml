@@ -18,3 +18,8 @@
 
     - name: Restart isc-dhcp-server 
       service: name=isc-dhcp-server state=restarted
+
+    - name: deploy initial config
+      template:
+        src: /templates/initial.j2
+        dest: "/var/ftp/dist/config/{{ hostname }}.config"
