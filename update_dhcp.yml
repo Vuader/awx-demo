@@ -26,8 +26,7 @@
 
 
 - name: Updating AWX
-  hosts: localhost
-  connection: local
+  hosts: AWX
   gather_facts: no
   tasks:
   - name: Create device on AWX
@@ -35,7 +34,6 @@
       name: "{{hostname}}"
       inventory: "vMX on EVE"
       state: present
-      tower_config_file: "/home/awx/.tower_cli.cfg"
       variables:
         ansible_host: "{{hostname}}"
         inventory_hostname: "{{hostname}}"
