@@ -1,6 +1,6 @@
 ---
 - name: Add JTI Resource
-  hosts: "{{ hosts }}"
+  hosts: "{{ targets }}"
   gather_facts: no
 
   tasks: 

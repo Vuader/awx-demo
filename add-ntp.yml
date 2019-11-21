@@ -1,6 +1,6 @@
 ---
 - name: Add NTP config
-  hosts: "{{ hosts }}"
+  hosts: "{{ targets }}"
   gather_facts: no
 
   tasks: 
