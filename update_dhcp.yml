@@ -6,11 +6,10 @@
     path: /etc/dhcp/dhcpd.conf
     block: |
       host {{ vendor_id }} {
-        hardware ethernet 50:07:00:01:00:00;
+        hardware ethernet {{mac}};
         option tftp-server-name "100.64.69.1";
-        option host-name "vMX1";
-        option NEW_OP.image-file-name "/dist/images/jinstall-ex-4200-13.2R1.1-domestic-signed.tgz";
+        option host-name "{{ hostname }}";
         option NEW_OP.transfer-mode "ftp";
-        option NEW_OP.config-file-name "/dist/config/jn-switch35.config";
+        option NEW_OP.config-file-name "/dist/config/{{ hostname }}.config";
       }
     marker: "# {mark} ANSIBLE MANAGED BLOCK {{ hostname }}"
