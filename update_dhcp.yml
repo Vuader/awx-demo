@@ -1,6 +1,6 @@
 ---
 - name: Update DHCP Server config
-  hosts: all
+  hosts: NX-OS
 
   tasks:
     - name: Update DHCP Server config
@@ -35,5 +35,6 @@
       inventory: "vMX on EVE"
       state: present
       variables:
-        ansible_host: {{hostname}}
-        inventory_hostname: {{hostname}}
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_user: awx
