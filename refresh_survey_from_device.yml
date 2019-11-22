@@ -1,6 +1,6 @@
 ---
 - name: Get device facts and configuration
-  hosts: "{{ targets }}"
+  hosts: AWX
   connection: local
   gather_facts: no
 
