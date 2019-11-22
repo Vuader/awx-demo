@@ -1,0 +1,14 @@
+---
+- name: Add open-nti server
+  hosts: "{{ targets }}"
+  gather_facts: no
+
+  tasks: 
+    - name: load configure lines into device
+      junos_config:
+        lines:
+            - set services analytics streaming-server opennti remote-address 10.84.0.99
+            - set services analytics streaming-server opennti remote-port 50000
+            - set services analytics export-profile opennti local-address 10.84.0.101
+            - set services analytics export-profile opennti format gpb
+            - set services analytics export-profile opennti transport udp
