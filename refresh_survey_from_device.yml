@@ -1,6 +1,6 @@
 ---
 - name: Get device facts and configuration
-  hosts: vMX1
+  hosts: {{targets}}
   connection: local
   gather_facts: no
 
@@ -23,25 +23,25 @@
 
 
 - name: Updating AWX
-  hosts: vMX1
+  hosts: AWX
   connection: local
   become: yes
   gather_facts: no
-  vars:   
-    admin_password: "password"
-    admin_username: "admin"
-    tower_url: "http://10.84.9.5"
   tasks:  
+  - name: Copy json template file
+    copy:
+      src: jti_survey.json
+      dest: /tmp/jti_survey.json
   - name: Update multiple choice options for export list in json
     json_patch:
-      src: "/var/lib/awx/projects/jti_survey.json"
+      src: "/tmp/jti_survey.json"
       operations:
         - op: replace
           path: "/spec/1/choices"
           value: "{{server_list}}"
   - name: Update multiple choice options for server list in json
     json_patch:
-      src: "/var/lib/awx/projects/jti_survey.json"
+      src: "/tmp/jti_survey.json"
       operations:
         - op: replace
           path: "/spec/2/choices"
@@ -55,9 +55,6 @@
       playbook: "add-jti.yml"
       credential: "Juniper Demo"
       survey_enabled: true
-      survey_spec: "{{ lookup('file', 'jti_survey.json') }}"
+      survey_spec: "{{ lookup('file', '/tmp/jti_survey.json') }}"
       ask_limit: True
-      tower_username: "{{admin_username}}"
-      tower_password: "{{admin_password}}"
-      tower_host: "{{tower_url}}"
       validate_certs: no
