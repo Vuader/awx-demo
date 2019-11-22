@@ -27,6 +27,8 @@
 
 - name: Updating AWX
   hosts: AWX
+  connection: local
+  become: yes
   gather_facts: no
   tasks:
   - name: Create device on AWX
