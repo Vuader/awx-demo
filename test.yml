@@ -1,0 +1,19 @@
+---
+- name: Just for testing purposes
+  hosts: "{{ targets }}"
+  gather_facts: no
+
+  tasks:
+    - name: showing the ssh key file loc
+      debug:
+        msg: "{{ lookup('env', 'ANSIBLE_NET_SSH_KEYFILE') }}"
+
+    - name: get uptime
+      shell: /usr/bin/uptime
+      register: result
+
+    - name: show uptime
+      debug:
+        var: result
+        verbosity: 2
+
