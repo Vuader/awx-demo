@@ -1,6 +1,6 @@
 ---
 - name: Get device facts and configuration
-  hosts: {{targets}}
+  hosts: "{{ targets }}"
   connection: local
   gather_facts: no
 
