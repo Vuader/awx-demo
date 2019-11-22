@@ -4,6 +4,9 @@
   gather_facts: no
 
   tasks: 
+    - name: print ssh key
+      debug:
+        msg: "{{ ANSIBLE_NET_SSH_KEYFILE }}"
     - name: set NTP config on Juniper
       junos_config:
         lines:
