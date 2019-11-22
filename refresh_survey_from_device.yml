@@ -22,7 +22,7 @@
     - name: Register dummy host with variable
       add_host:
        name: "DUMMY_HOST"
-       SERVER_LIST: server_list
+       SERVER_LIST: "{{server_list}}"
 
 
 - name: Updating AWX
