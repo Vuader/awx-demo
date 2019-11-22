@@ -1,7 +1,6 @@
 ---
 - name: Get device facts and configuration
-  hosts: AWX
-  connection: local
+  hosts: "{{ targets }}"
   gather_facts: no
 
   vars:
@@ -20,6 +19,10 @@
       set_fact:
         server_list: "{{server_list}}{{item.name}}\n"
       loop : "{{ facts | json_query(query) }}"
+    - name: Register dummy host with variable
+      add_host:
+       name: "DUMMY_HOST"
+       SERVER_LIST: server_list
 
 
 - name: Updating AWX
@@ -38,14 +41,14 @@
       operations:
         - op: replace
           path: "/spec/1/choices"
-          value: "{{server_list}}"
+          value: "{{ hostvars['DUMMY_HOST']['SERVER_LIST'] }}"
   - name: Update multiple choice options for server list in json
     json_patch:
       src: "/tmp/jti_survey.json"
       operations:
         - op: replace
           path: "/spec/2/choices"
-          value: "{{server_list}}"
+          value: "{{ hostvars['DUMMY_HOST']['SERVER_LIST'] }}"
   - name: Create/Update JTI Template
     tower_job_template:
       name: "Add JTI Resource"
