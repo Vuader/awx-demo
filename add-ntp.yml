@@ -9,7 +9,8 @@
         msg: "{{ lookup('env', 'ANSIBLE_NET_SSH_KEYFILE') }}"
     - name: set NTP config on Juniper
       junos_config:
-        ssh_private_key_file: "{{ lookup('env', 'ANSIBLE_NET_SSH_KEYFILE') }}"
+        provider:
+          ssh_private_key_file: "{{ lookup('env', 'ANSIBLE_NET_SSH_KEYFILE') }}"
         lines:
           - set system ntp server 196.4.160.4
           - set system ntp peer 196.4.160.4
