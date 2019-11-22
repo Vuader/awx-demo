@@ -3,6 +3,16 @@
   "description": "Prompt for JTI Values",
   "spec": [
        {   
+        "question_description": "Ansible hosts",
+        "min": null,
+        "default": "",
+        "max": null,
+        "required": true,
+        "variable": "targets",
+        "question_name": "Hosts",
+        "type": "text"
+    },
+       {   
         "question_description": "Sensor Name",
         "min": null,
         "default": "",
