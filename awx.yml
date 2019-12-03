@@ -1,0 +1,40 @@
+---
+- hosts: newlab
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Add Ansible Repository
+    apt_repository:
+      repo: ppa:ansible/ansible
+      state: present
+
+  - name: Update apt and install docker-ce and python-pip
+    apt: 
+      update_cache: yes 
+      name: ['docker-ce', 'python-pip']
+      state: latest
+
+  - name: Install AWX dependencies
+    pip: 
+      name: ['ansible', 'docker-compose']
+
+  - name: Clone latest AWX
+    git:
+      repo: https://github.com/ansible/awx.git
+      dest: /opt/awx
+
+  - name: Install AWX
+    command:
+      ansible-playbook -i inventory install.yml
+    args:
+      chdir: /opt/awx/installer
