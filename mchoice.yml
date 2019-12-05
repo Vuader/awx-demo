@@ -3,13 +3,13 @@
   hosts: "{{ targets }}"
   gather_facts: no
 
+  vars:
+    commands = []
+
   tasks: 
     - name: showing the mchoice var
       debug:
         msg: "{{ interfaces }}"
-    - name: Create empty list of commands
-      set_fact:
-        commands = []
     - name: Populate list of commands
       set_fact:
         command = "set groups CORE_INTERNAL interfaces {{item}} unit 0 family mpls"
