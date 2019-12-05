@@ -13,7 +13,7 @@
     - name: Populate list of commands
       set_fact:
         command = "set groups CORE_INTERNAL interfaces {{item}} unit 0 family mpls"
-        commands = "{{ commands + [ command ] }}"
+        commands = "{{ commands }} + [{{ command  }}]"
       with_items: "{{ interfaces }}"
     - name: showing the commands
       debug:
