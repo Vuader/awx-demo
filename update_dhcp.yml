@@ -15,9 +15,11 @@
             option NEW_OP.config-file-name "/dist/config/{{ hostname }}.config";
           }
         marker: "# {mark} ANSIBLE MANAGED BLOCK {{ hostname }}"
+      register: dhcp
 
     - name: Restart isc-dhcp-server 
       service: name=isc-dhcp-server state=restarted
+      when: dhcp['changed']
 
     - name: deploy initial config
       template:
