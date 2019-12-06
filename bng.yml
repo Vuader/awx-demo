@@ -61,4 +61,8 @@
           - set access address-assignment pool PPPOE-POOL family inet range range0 high {{v4_pool_high}}
           - set access address-assignment pool NDRA-POOL family inet6 prefix {{v6_prefix}}
           - set access address-assignment pool NDRA-POOL family inet6 range 1 prefix-length {{v6_prefix_length}}
+          - set access address-assignment pool PD-POOL family inet6 prefix fc00:a::/48
+          - set access address-assignment pool PD-POOL family inet6 range 1 prefix-length 64
+          - set system services dhcp-local-server dhcpv6 group DHCP overrides delegated-pool PD-POOL
+          - set system services dhcp-local-server dhcpv6 group DHCP interface pp0.0
 
