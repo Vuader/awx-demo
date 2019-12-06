@@ -31,9 +31,9 @@
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" pppoe-options underlying-interface "$junos-underlying-interface"
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" pppoe-options server
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" keepalives interval 30
-          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet unnumbered-address lo0.0
+          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet unnumbered-address "$junos-loopback-interface"
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet6 address $junos-ipv6-address
-          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet6 unnumbered-address lo0.0
+          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet6 unnumbered-address "$junos-loopback-interface"
           - set dynamic-profiles PPPoE-Default protocols router-advertisement interface "$junos-interface-name" prefix $junos-ipv6-ndra-prefix
           - set dynamic-profiles dynamic-profiles
           - set chassis network-services enhanced-ip
