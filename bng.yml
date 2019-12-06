@@ -38,9 +38,9 @@
           - set dynamic-profiles dynamic-profiles
           - set chassis network-services enhanced-ip
           - set access-profile vBNG
-          - set interfaces {{pppoe-interface}} unit 0 description "CPE's"
-          - set interfaces {{pppoe-interface}} unit 0 encapsulation ppp-over-ether
-          - set interfaces {{pppoe-interface}} unit 0 pppoe-underlying-options dynamic-profile PPPoE-Default
+          - set interfaces {{pppoe_interface}} unit 0 description "CPE's"
+          - set interfaces {{pppoe_interface}} unit 0 encapsulation ppp-over-ether
+          - set interfaces {{pppoe_interface}} unit 0 pppoe-underlying-options dynamic-profile PPPoE-Default
           - set interfaces lo0 unit 0 family inet address {{lo0_ipv4}}/32
           - set interfaces lo0 unit 0 family inet6 address {{lo0_ipv6}}/128
           - set access profile vBNG authentication-order radius
