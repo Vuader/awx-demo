@@ -15,9 +15,11 @@
             option NEW_OP.config-file-name "/dist/config/{{ hostname }}.config";
           }
         marker: "# {mark} ANSIBLE MANAGED BLOCK {{ hostname }}"
+      register: dhcp
 
     - name: Restart isc-dhcp-server 
       service: name=isc-dhcp-server state=restarted
+      when: dhcp['changed']
 
     - name: deploy initial config
       template:
@@ -31,12 +33,20 @@
   become: yes
   gather_facts: no
   tasks:
-  - name: Create device on AWX
+  - name: Create host on AWX
     tower_host:
-      name: "{{hostname}}"
+      name: "{{fxp0_address}}"
       inventory: "vMX on EVE"
       state: present
       variables:
         ansible_connection: netconf
         ansible_network_os: junos
         ansible_user: awx
+  - name: Create group on AWX
+    tower_group:
+      name: "{{hostname}}"
+      inventory: "vMX on EVE"
+      state: present
+  - name: Assign Host to Group
+    command:
+      "awx-cli host associate --host {{ fxp0_address|quote}} --group {{ hostname|quote }}"
