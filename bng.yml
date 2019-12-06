@@ -19,12 +19,20 @@
           - set groups BNG-TRACES system processes dhcp-service traceoptions file dhcp.log
           - set groups BNG-TRACES system processes dhcp-service traceoptions file size 10m
           - set groups BNG-TRACES system processes dhcp-service traceoptions file files 10
+          - set groups BNG-TRACES system processes smg-service traceoptions file trace-bbe-smgd.log
+          - set groups BNG-TRACES system processes smg-service traceoptions file size 100m
+          - set groups BNG-TRACES system processes smg-service traceoptions file files 10
+          - set groups BNG-TRACES system processes smg-service traceoptions level all
+          - set groups BNG-TRACES system processes smg-service traceoptions flag all
           - set groups BNG-TRACES protocols ppp-service traceoptions file pppserv.log
           - set groups BNG-TRACES protocols ppp-service traceoptions file size 10m
           - set groups BNG-TRACES protocols ppp-service traceoptions level all
           - set groups BNG-TRACES protocols ppp-service traceoptions flag all
           - set system configuration-database max-db-size 104857600
           - set system services subscriber-management enable
+          - set dynamic-profiles PPPoE-Default routing-instances "$junos-routing-instance" interface "$junos-interface-name"
+          - set dynamic-profiles PPPoE-Default routing-instances "$junos-routing-instance" routing-options access-internal route $junos-subscriber-ip-address qualified-next-hop "$junos-interface-name"
+          - set dynamic-profiles PPPoE-Default routing-instances "$junos-routing-instance" routing-options access-internal route $junos-subscriber-ipv6-address qualified-next-hop "$junos-interface-name"
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" no-traps
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" ppp-options chap
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" ppp-options pap
