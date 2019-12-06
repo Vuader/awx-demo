@@ -45,12 +45,12 @@
           - set interfaces lo0 unit 0 family inet6 address {{lo0_ipv6}}/128
           - set access profile vBNG authentication-order radius
           - set access profile vBNG radius authentication-server {{radius_ip}}
-          - set access profile vBNG radius-server {{radius_ip}} secret "$9$LLxXVYJZjqPQDiQn9pREKM8XdbYgoGjH"
+          - set access profile vBNG radius-server {{radius_ip}} secret "{{radius_secret}}"
           - set access profile vBNG radius-server {{radius_ip}} source-address {{radius_source_ip}}
           - set access address-assignment neighbor-discovery-router-advertisement NDRA-POOL
           - set access address-assignment pool PPPOE-POOL family inet network {{v4_pool_network}}
           - set access address-assignment pool PPPOE-POOL family inet range range0 low {{v4_pool_low}}
-          - set access address-assignment pool PPPOE-POOL family inet range range0 high {{v4_pool_low}}
+          - set access address-assignment pool PPPOE-POOL family inet range range0 high {{v4_pool_high}}
           - set access address-assignment pool NDRA-POOL family inet6 prefix {{v6_prefix}}
           - set access address-assignment pool NDRA-POOL family inet6 range 1 prefix-length {{v6_prefix_length}}
 
