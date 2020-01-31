@@ -16,26 +16,41 @@
           - set groups BNG-TRACES system processes general-authentication-service traceoptions file size 10m
           - set groups BNG-TRACES system processes general-authentication-service traceoptions file files 10
           - set groups BNG-TRACES system processes general-authentication-service traceoptions flag radius
+          - set groups BNG-TRACES system processes smg-service traceoptions file trace-bbe-smgd.log
+          - set groups BNG-TRACES system processes smg-service traceoptions file size 100m
+          - set groups BNG-TRACES system processes smg-service traceoptions file files 10
+          - set groups BNG-TRACES system processes smg-service traceoptions level all
+          - set groups BNG-TRACES system processes smg-service traceoptions flag all
           - set groups BNG-TRACES system processes dhcp-service traceoptions file dhcp.log
           - set groups BNG-TRACES system processes dhcp-service traceoptions file size 10m
           - set groups BNG-TRACES system processes dhcp-service traceoptions file files 10
+          - set groups BNG-TRACES system processes dhcp-service traceoptions level all
+          - set groups BNG-TRACES system processes dhcp-service traceoptions flag all
           - set groups BNG-TRACES protocols ppp-service traceoptions file pppserv.log
           - set groups BNG-TRACES protocols ppp-service traceoptions file size 10m
+          - set groups BNG-TRACES protocols ppp-service traceoptions file files 10
           - set groups BNG-TRACES protocols ppp-service traceoptions level all
           - set groups BNG-TRACES protocols ppp-service traceoptions flag all
-          - set system configuration-database max-db-size 104857600
-          - set system services subscriber-management enable
+          - set groups BNG-TRACES protocols ppp traceoptions file ppp.log
+          - set groups BNG-TRACES protocols ppp traceoptions file size 10m
+          - set groups BNG-TRACES protocols ppp traceoptions file files 10
+          - set groups BNG-TRACES protocols ppp traceoptions level all
+          - set groups BNG-TRACES protocols ppp traceoptions flag all
+          - set dynamic-profiles PPPoE-Default routing-instances "$junos-routing-instance" interface "$junos-interface-name"
+          - set dynamic-profiles PPPoE-Default routing-instances "$junos-routing-instance" routing-options access-internal route $junos-subscriber-ip-address qualified-next-hop "$junos-interface-name"
+          - set dynamic-profiles PPPoE-Default routing-instances "$junos-routing-instance" routing-options access-internal route $junos-subscriber-ipv6-address qualified-next-hop "$junos-interface-name"
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" no-traps
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" ppp-options chap
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" ppp-options pap
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" pppoe-options underlying-interface "$junos-underlying-interface"
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" pppoe-options server
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" keepalives interval 30
-          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet unnumbered-address lo0.0
+          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet unnumbered-address "$junos-loopback-interface"
           - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet6 address $junos-ipv6-address
-          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet6 unnumbered-address lo0.0
+          - set dynamic-profiles PPPoE-Default interfaces pp0 unit "$junos-interface-unit" family inet6 unnumbered-address "$junos-loopback-interface"
           - set dynamic-profiles PPPoE-Default protocols router-advertisement interface "$junos-interface-name" prefix $junos-ipv6-ndra-prefix
-          - set dynamic-profiles dynamic-profiles
+          - set system configuration-database max-db-size 104857600
+          - set system services subscriber-management enable
           - set chassis network-services enhanced-ip
           - set access-profile vBNG
           - set interfaces {{pppoe-interface}} unit 0 description "CPE's"
@@ -43,14 +58,3 @@
           - set interfaces {{pppoe-interface}} unit 0 pppoe-underlying-options dynamic-profile PPPoE-Default
           - set interfaces lo0 unit 0 family inet address {{lo0_ipv4}}/32
           - set interfaces lo0 unit 0 family inet6 address {{lo0_ipv6}}/128
-          - set access profile vBNG authentication-order radius
-          - set access profile vBNG radius authentication-server {{radius_ip}}
-          - set access profile vBNG radius-server {{radius_ip}} secret "$9$LLxXVYJZjqPQDiQn9pREKM8XdbYgoGjH"
-          - set access profile vBNG radius-server {{radius_ip}} source-address {{radius_source_ip}}
-          - set access address-assignment neighbor-discovery-router-advertisement NDRA-POOL
-          - set access address-assignment pool PPPOE-POOL family inet network {{v4_pool_network}}
-          - set access address-assignment pool PPPOE-POOL family inet range range0 low {{v4_pool_low}}
-          - set access address-assignment pool PPPOE-POOL family inet range range0 high {{v4_pool_low}}
-          - set access address-assignment pool NDRA-POOL family inet6 prefix {{v6_prefix}}
-          - set access address-assignment pool NDRA-POOL family inet6 range 1 prefix-length {{v6_prefix_length}}
-
