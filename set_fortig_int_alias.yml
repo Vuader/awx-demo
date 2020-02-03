@@ -1,0 +1,13 @@
+- hosts: localhost
+  vars:
+   host: "{{target}}"
+   username: "admin"
+   password: "XonXoff"
+   vdom: "root"
+   ssl_verify: "False"
+  tasks:
+  - name: Configure interfaces.
+    fortios_system_interface:
+      https: "False"
+      system_interface:
+        alias: "{{alias}}"
