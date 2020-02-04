@@ -1,7 +1,7 @@
 - hosts: localhost
   vars:
    host: "{{target}}"
-   username: "admin"
+   username: "awx"
    password: "Hsmy6rm7yrhg86Q4w0hsHmn6N6hQ1z"
    vdom: "root"
    ssl_verify: "False"
@@ -9,7 +9,7 @@
   - name: Configure interfaces.
     fortios_system_interface:
       host: "{{target}}"
-      username: "admin"
+      username: "awx"
       password: "Hsmy6rm7yrhg86Q4w0hsHmn6N6hQ1z"
       vdom: "root"
       https: "False"
