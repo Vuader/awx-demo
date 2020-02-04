@@ -8,6 +8,10 @@
   tasks:
   - name: Configure interfaces.
     fortios_system_interface:
+      host: "{{target}}"
+      username: "admin"
+      password: "XonXoff"
+      vdom: "root"
       https: "False"
       system_interface:
         alias: "{{alias}}"
