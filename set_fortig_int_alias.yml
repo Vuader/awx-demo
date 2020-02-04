@@ -13,7 +13,6 @@
       password: "XonXoff"
       vdom: "root"
       https: "False"
-      state: "present"
       system_interface:
         name: "{{port}}"
         alias: "{{alias}}"
