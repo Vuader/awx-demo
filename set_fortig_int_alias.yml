@@ -6,6 +6,8 @@
    vdom: "root"
    ssl_verify: "False"
   tasks:
+  - debug: var=fortiapi_user
+  - debug: var=fortiapi_password
   - name: Configure interfaces.
     fortios_system_interface:
       host: "{{target}}"
