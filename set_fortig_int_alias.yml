@@ -1,16 +1,16 @@
 - hosts: localhost
   vars:
    host: "{{target}}"
-   username: "admin"
-   password: "XonXoff"
+   username: "{{fortiapi_user}}"
+   password: "{{fortiapi_password}}"
    vdom: "root"
    ssl_verify: "False"
   tasks:
   - name: Configure interfaces.
     fortios_system_interface:
       host: "{{target}}"
-      username: "admin"
-      password: "XonXoff"
+      username: "{{fortiapi_user}}"
+      password: "{{fortiapi_password}}"
       vdom: "root"
       https: "False"
       system_interface:
