@@ -1,0 +1,40 @@
+---
+- hosts: {{target}}
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Update apt and install isc-dhcp-server
+    apt: 
+      update_cache: yes 
+      name: isc-dhcp-server
+      state: latest
+  - name: Update DHCP Server config
+      blockinfile:
+        path: /etc/dhcp/dhcpd.conf
+        insertafter: "max-lease-time.*"
+        block: |
+
+          subnet {{subnet}} netmask {{netmask}} {
+            range {{range_start}} {{range_stop}};
+          }
+
+          option space NEW_OP;
+          option NEW_OP.image-file-name code 0 = text;
+          option NEW_OP.config-file-name code 1 = text;
+          option NEW_OP.image-file-type code 2 = text;
+          option NEW_OP.transfer-mode code 3 = text;
+          option NEW_OP.alt-image-file-name code 4= text;
+          option NEW_OP.http-port code 5= text;
+          option NEW_OP-encapsulation code 43 = encapsulate NEW_OP;
+
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+  - name: update dhcp-server interface in /etc/default/isc-dhcp-server
+    lineinfile:
+      path: /etc/default/isc-dhcp-server
+      regexp: 'INTERFACESv4="(.*)"'
+      line: 'INTERFACESv4="\1 {{interface}}"'
+      backrefs: yes
+
+  - name: Restart isc-dhcp-server
+    service: name=isc-dhcp-server state=restarted
+
