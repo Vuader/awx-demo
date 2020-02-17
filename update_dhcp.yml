@@ -36,7 +36,7 @@
   - name: Create host on AWX
     tower_host:
       name: "{{fxp0_address}}"
-      inventory: "vMX on EVE"
+      inventory: "Services"
       state: present
       variables:
         ansible_connection: netconf
@@ -45,7 +45,7 @@
   - name: Create group on AWX
     tower_group:
       name: "{{hostname}}"
-      inventory: "vMX on EVE"
+      inventory: "Services"
       state: present
   - name: Assign Host to Group
     command:
