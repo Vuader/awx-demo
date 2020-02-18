@@ -8,26 +8,26 @@
       junos_config:
         lines:
           - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} description "Loopback for {{routing_instance}} pppoe gateway"
-          - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} family inet address {{lo0_ipv4}}/32
+          - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} family inet address {{lo0_ipv4}/32
           - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} family inet6 address {{lo0_ipv6}}/128
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} instance-type vrf
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} system services dhcp-local-server dhcpv6 overrides
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} system services dhcp-local-server dhcpv6 group DHCP interface pp0.0
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment neighbor-discovery-router-advertisement {{routing_instance}}-V6-NDRA-POOL
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment high-utilization 90
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment abated-utilization 70
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet network {{v4_pool}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet range 1 low {{v4_low}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet range 1 high {{v4_high}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet dhcp-attributes name-server {{name_server1}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet dhcp-attributes name-server {{name_server2}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-PD-POOL family inet6 prefix {{v6_pd_prefix}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-PD-POOL family inet6 range 1 prefix-length {{v6_pd_prefix_length}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-V6-NDRA-POOL family inet6 prefix {{v6_ndra_prefix}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-V6-NDRA-POOL family inet6 range 1 low {{v6_low}}/64
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} access address-assignment pool {{routing_instance}}-V6-NDRA-POOL family inet6 range 1 high {{v6_high}}/64
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} interface lo0.{{lo0_unit}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} route-distinguisher {{rd}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} vrf-target target:{{rt}}
-          - set groups {{routing_instance}} routing_instances {{routing_instance}} vrf-table-label
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} instance-type vrf
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} system services dhcp-local-server dhcpv6 overrides
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} system services dhcp-local-server dhcpv6 group DHCP interface pp0.0
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment neighbor-discovery-router-advertisement {{routing_instance}}-V6-NDRA-POOL
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment high-utilization 90
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment abated-utilization 70
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet network {{v4_pool}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet range 1 low {{v4_low}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet range 1 high {{v4_high}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet dhcp-attributes name-server {{name_server1}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-v4-POOL family inet dhcp-attributes name-server {{name_server2}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-PD-POOL family inet6 prefix {{v6_pd_prefix}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-PD-POOL family inet6 range 1 prefix-length {{v6_pd_prefix_length}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-V6-NDRA-POOL family inet6 prefix {{v6_ndra_prefix}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-V6-NDRA-POOL family inet6 range 1 low {{v6_low}}/64
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} access address-assignment pool {{routing_instance}}-V6-NDRA-POOL family inet6 range 1 high {{v6_high}}/64
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} interface lo0.{{lo0_unit}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} route-distinguisher {{rd}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} vrf-target target:{{rt}}
+          - set groups {{routing_instance}} routing-instances {{routing_instance}} vrf-table-label
           - set apply-groups {{routing_instance}}
