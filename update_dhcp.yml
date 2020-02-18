@@ -1,6 +1,6 @@
 ---
 - name: Update DHCP Server config
-  hosts: NX-OS
+  hosts: MainVM
 
   tasks:
     - name: Update DHCP Server config
