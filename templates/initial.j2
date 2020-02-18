@@ -21,16 +21,11 @@ chassis {
     delete: auto-image-upgrade;
 }
 interfaces {
-    ge-0/0/0 {
+    fxp0 {
         unit 0 {
             family inet {
-                address 10.84.0.101/24;
+                address 100.64.69.2/24;
             }
         }
-    }
-}
-routing-options {
-    static {
-        route 10.84.9.15/32 next-hop 10.84.0.1;
     }
 }
