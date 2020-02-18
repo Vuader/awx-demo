@@ -49,4 +49,4 @@
       state: present
   - name: Assign Host to Group
     command:
-      "awx-cli host associate --host {{ fxp0_address|quote}} --group {{ hostname|quote }}"
+      "awx-cli host associate --host {{ fxp0_address.split('/')[0]|quote}} --group {{ hostname|quote }}"
