@@ -8,7 +8,7 @@
       junos_config:
         lines:
           - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} description "Loopback for {{routing_instance}} pppoe gateway"
-          - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} family inet address {{lo0_ipv4}/32
+          - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} family inet address {{lo0_ipv4}}/32
           - set groups {{routing_instance}} interfaces lo0 unit {{lo0_unit}} family inet6 address {{lo0_ipv6}}/128
           - set groups {{routing_instance}} routing_instances {{routing_instance}} instance-type vrf
           - set groups {{routing_instance}} routing_instances {{routing_instance}} system services dhcp-local-server dhcpv6 overrides
