@@ -35,7 +35,7 @@
   tasks:
   - name: Create host on AWX
     tower_host:
-      name: "{{fxp0_address}}"
+      name: "{{fxp0_address.split('/')[0]}}"
       inventory: "{{inventory}}"
       state: present
       variables:
