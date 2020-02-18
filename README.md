@@ -76,7 +76,7 @@ users file:
         ERX-IPv6-Delegated-Pool-Name = RINAME-PD-POOL
 
         /interface pppoe-client
-        add add-default-route=yes interface=ether1 name=pppoe-out1 password=testing user=steve
+        add add-default-route=yes interface=ether1 name=pppoe-out1 password=testing user=steve disabled=no
         /ipv6 settings
         set accept-router-advertisements=no
         /ipv6 address
