@@ -33,7 +33,7 @@ users file:
     Example Mikrotic CPE config:
 
         /interface pppoe-client
-        add add-default-route=yes interface=ether1 name=pppoe-out1 password=testing user=steve
+        add add-default-route=yes interface=ether1 name=pppoe-out1 password=testing user=steve disabled=no
         /ipv6 settings
         set accept-router-advertisements=yes
         /ipv6 address
@@ -54,7 +54,7 @@ users file:
     Example Mikrotic CPE config:
 
         /interface pppoe-client
-        add add-default-route=yes interface=ether1 name=pppoe-out1 password=testing user=steve
+        add add-default-route=yes interface=ether1 name=pppoe-out1 password=testing user=steve disabled=no
         /ipv6 settings
         set accept-router-advertisements=no
         /ipv6 dhcp-client
