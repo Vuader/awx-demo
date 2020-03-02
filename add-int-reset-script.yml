@@ -1,0 +1,19 @@
+---
+- name: Add Event Script to disable/enable interface
+  hosts: "{{ targets }}"
+  gather_facts: no
+
+  tasks: 
+    - name: load configure lines into device
+      junos_config:
+        lines:
+          - set event-options policy disable-on-snmp-trap-link-down events snmp_trap_link_down
+          - set event-options policy disable-on-snmp-trap-link-down attributes-match snmp_trap_link_down.interface-name matches {{ monitor_interface }}
+          - set event-options policy disable-on-snmp-trap-link-down attributes-match snmp_trap_link_down.admin-status matches up
+          - set event-options policy disable-on-snmp-trap-link-down then change-configuration commands "set interfaces {{ reset_interface }} disable"
+          - set event-options policy disable-on-snmp-trap-link-down then change-configuration commit-options log "updating configuration from event policy disable-on-snmp-trap-link-down"
+          - set event-options policy enable-on-snmp-trap-link-down events snmp_trap_link_down
+          - set event-options policy enable-on-snmp-trap-link-down attributes-match snmp_trap_link_down.interface-name matches {{ reset_interface }}
+          - set event-options policy enable-on-snmp-trap-link-down attributes-match snmp_trap_link_down.admin-status matches down
+          - set event-options policy enable-on-snmp-trap-link-down then change-configuration commands "set interfaces {{ reset_interface }} enable"
+          - set event-options policy enable-on-snmp-trap-link-down then change-configuration commit-options log "updating configuration from event policy enable-on-snmp-trap-link-down"
