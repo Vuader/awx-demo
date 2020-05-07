@@ -1,0 +1,9 @@
+---
+- name: Run Junos Command
+  hosts: "{{ targets }}"
+  gather_facts: no
+
+  tasks: 
+    - name: Run command
+      junos_command:
+        commands: "{{ command }}"
