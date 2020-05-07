@@ -1,0 +1,15 @@
+---
+- name: Add Pool to BNG
+  hosts: "{{ targets }}"
+  gather_facts: no
+
+  tasks: 
+    - name: Add next Pool to BNG
+      junos_config:
+        lines:
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} link {{linked_pool}}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet network {{ network }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet range 1 low {{ range_low }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet range 1 high {{ range_high }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet dhcp-attributes name-server {{ name_server_1 }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet dhcp-attributes name-server {{ name_server_2 }}
