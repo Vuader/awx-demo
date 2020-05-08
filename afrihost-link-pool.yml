@@ -1,0 +1,23 @@
+---
+- name: Get device facts and configuration
+  hosts: "{{ targets }}"
+  gather_facts: no
+
+  vars:
+    query: 'ansible_facts.ansible_net_config.configuration.groups.AFRIHOST."routing-instances".AFRIHOST.access."address-assignment"'
+
+  tasks:
+    - name: Initializing an empty variable to hold server names
+      set_fact:
+        pool_list: ""
+    - name: Fetch latest config from Device
+      junos_facts:
+        gather_subset: config
+        config_format: "json"
+      register: facts
+    - name: Getting relevant configured values
+      set_fact:
+        pool_list: "{{pool_list}}{{item.name}}\n"
+      loop : "{{ facts | json_query(query) }}"
+    - name: debug
+      debug: pool_list
