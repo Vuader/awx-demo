@@ -1,24 +1,34 @@
 ---
 - name: Get device facts and configuration
-  hosts: "{{ targets }}"
+  hosts: "{{ targets }}" 
   gather_facts: no
 
   vars:
-    query: 'ansible_facts.ansible_net_config.configuration.groups.AFRIHOST."routing-instances".AFRIHOST.access."address-assignment"'
+    query: 'stdout[0]."aaa-module-statistics"[0]."aaa-module-address-assignment-pool-statistics"'
+    multi_pool_query: 'stdout[0]."aaa-module-statistics"[0]."aaa-module-address-assignment-pool-statistics"[-2]."pool-name"[0].data'
+    single_pool_query: 'stdout[0]."aaa-module-statistics"[0]."aaa-module-address-assignment-pool-statistics"[0]."pool-name"[0].data'
+    
 
   tasks:
-    - name: Initializing an empty variable to hold server names
-      set_fact:
-        pool_list: ""
-    - name: Fetch latest config from Device
-      junos_facts:
-        gather_subset: config
-        config_format: "json"
+    - name: Fetch list of pools from Device
+      junos_command:
+        commands: show network-access aaa statistics address-assignment pool routing-instance AFRIHOST AFRIHOST_1 
+        display: json
       register: facts
-    - name: Getting relevant configured values
+    - name: Setting Last Pool Name when Multiple pools exist
       set_fact:
-        pool_list: "{{pool_list}}{{item.name}}\n"
-      loop : "{{ facts | json_query(query) }}"
-    - name: debug
-      debug: 
-        var: pool_list
+        last_pool: "{{ facts | json_query(multi_pool_query) }}"
+      when: ( facts | json_query(query) | length  > 1 )
+    - name: Setting Last Pool Name when one pool exist
+      set_fact:
+        last_pool: "{{ facts | json_query(single_pool_query) }}"
+      when: ( facts | json_query(query) | length  == 1 )
+    - name: Add next Pool to BNG
+      junos_config:
+        lines:
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ last_pool }} link {{ pool_name }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet network {{ network }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet range 1 low {{ range_low }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet range 1 high {{ range_high }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet dhcp-attributes name-server {{ name_server_1 }}
+            - set groups AFRIHOST routing-instances AFRIHOST access address-assignment pool {{ pool_name }} family inet dhcp-attributes name-server {{ name_server_2 }}
