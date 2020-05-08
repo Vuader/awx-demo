@@ -20,4 +20,5 @@
         pool_list: "{{pool_list}}{{item.name}}\n"
       loop : "{{ facts | json_query(query) }}"
     - name: debug
-      debug: pool_list
+      debug: 
+        var: pool_list
