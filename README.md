@@ -49,7 +49,7 @@ users file:
         Framed-MTU = 1500,
         ERX-Virtual-Router-Name = RINAME,
         ERX-Address-Pool-Name = RINAME-v4-POOL,
-        Framed-IPv6-Pool = RINAME-V6-POOL,
+        Framed-IPv6-Pool = RINAME-V6-IANA-POOL,
         ERX-IPv6-Delegated-Pool-Name = RINAME-PD-POOL
 
     Example Mikrotic CPE config:
