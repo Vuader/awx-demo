@@ -50,6 +50,7 @@ users file:
         ERX-Virtual-Router-Name = RINAME,
         ERX-Address-Pool-Name = RINAME-v4-POOL,
         Framed-IPv6-Pool = RINAME-V6-POOL,
+        ERX-IPv6-Delegated-Pool-Name = RINAME-PD-POOL
 
     Example Mikrotic CPE config:
 
@@ -58,10 +59,7 @@ users file:
         /ipv6 settings
         set accept-router-advertisements=no
         /ipv6 dhcp-client
-        add interface=pppoe-out1 pool-name=mypool request=address
-
-   Note no DHCPv6 prefix deligation this time, see here why:
-   https://forum.mikrotik.com/viewtopic.php?t=156561#p772212
+        add interface=pppoe-out1 pool-name=mypool request=address,prefix
 
   Case3: NO IPv6 on CPE WAN!!!!!
          (still works because on BNG PD route next hop is "access" on interface of pppoe session,
